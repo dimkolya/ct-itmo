@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="number_size">20sp</dimen>
+    <dimen name="operand_size">20sp</dimen>
+    <dimen name="result_size">48sp</dimen>
+</resources>

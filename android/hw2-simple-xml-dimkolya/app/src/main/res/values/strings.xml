@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SimpleXml</string>
+    <string name="buttonLogin">LOG IN</string>
+    <string name="editTextEmailHint">email</string>
+    <string name="editTextPasswordHint">password</string>
+    <string name="errorEmptyPassword">No password specified</string>
+    <string name="errorEmptyEmail">Login not specified</string>
+    <string name="errorIncorrectPassword">Invalid password</string>
+    <string name="errorIncorrectEmail">Invalid email</string>
+    <string name="errorIncorrectEmailOrPassword">Incorrect login or password</string>
+</resources>

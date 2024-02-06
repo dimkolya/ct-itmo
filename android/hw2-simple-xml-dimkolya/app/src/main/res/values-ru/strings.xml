@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimpleXml</string>
+    <string name="buttonLogin">ВОЙТИ</string>
+    <string name="editTextEmailHint">электронная почта</string>
+    <string name="editTextPasswordHint">пароль</string>
+    <string name="errorEmptyPassword">Не указан пароль</string>
+    <string name="errorEmptyEmail">Не указан логин</string>
+    <string name="errorIncorrectPassword">Недопустимый пароль</string>
+    <string name="errorIncorrectEmail">Недопустимый логин</string>
+    <string name="errorIncorrectEmailOrPassword">Неверный логин или пароль</string>
+</resources>

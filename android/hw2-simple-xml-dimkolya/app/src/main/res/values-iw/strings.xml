@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SimpleXml</string>
+    <string name="buttonLogin">התחברות</string>
+    <string name="editTextEmailHint">אימייל</string>
+    <string name="editTextPasswordHint">סיסמה</string>
+    <string name="errorEmptyPassword">לא צוינה סיסמה</string>
+    <string name="errorEmptyEmail">כניסה לא צוינה</string>
+    <string name="errorIncorrectPassword">סיסמה שגויה</string>
+    <string name="errorIncorrectEmail">כניסה לא חוקית</string>
+    <string name="errorIncorrectEmailOrPassword">שם משתמש או סיסמה לא נכונים</string>
+</resources>
