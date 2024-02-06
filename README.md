@@ -2,8 +2,9 @@
 
 ## Архитектура ЭВМ 
 ### [`/comp_arch`](https://github.com/dimkolya/ct_itmo/tree/main/comp_arch)
-1. Использование стандарта `openmp` для увеличения контраста изображения формата `PPM` - [ссылка](https://github.com/dimkolya/ct_itmo/tree/main/comp_arch/openmp)
-2. Реализация уязвимости `spectre` - [ссылка](https://github.com/dimkolya/ct_itmo/tree/main/comp_arch/spectre)
+1. Дизассемблер RISCV - [ссылка](https://github.com/dimkolya/ct_itmo/blob/main/comp_arch/RISCVDisassembler.java)
+2. Использование стандарта `openmp` для увеличения контраста изображения формата `PPM` - [ссылка](https://github.com/dimkolya/ct_itmo/tree/main/comp_arch/openmp)
+3. Реализация уязвимости `spectre` - [ссылка](https://github.com/dimkolya/ct_itmo/tree/main/comp_arch/spectre)
 
 ## C++
 ### [`/cpp`](https://github.com/dimkolya/ct_itmo/tree/main/cpp)
