@@ -53,6 +53,22 @@ void usertrap(void) {
     intr_on();
 
     syscall();
+  } else if (r_scause() == 13) {
+    // load page fault
+    uint64 va = r_stval();
+    if (va >= p->sz || uvmlazyalloc(p->pagetable, va) == 0) {
+      printf("usertrap(): load page fault pid=%d\n", p->pid);
+      printf("            sepc=%p stval=%p\n", r_sepc(), va);
+      setkilled(p);
+    }
+  } else if (r_scause() == 15) {
+    // store/AMO page fault
+    uint64 va = r_stval();
+    if ((va >= p->sz || uvmlazyalloc(p->pagetable, va) == 0) && uvmunblock(p->pagetable, va)) {
+      printf("usertrap(): store/AMO page fault pid=%d\n", p->pid);
+      printf("            sepc=%p stval=%p %p\n", r_sepc(), va, p->sz);
+      setkilled(p);
+    }
   } else if ((which_dev = devintr()) != 0) {
     // ok
   } else {

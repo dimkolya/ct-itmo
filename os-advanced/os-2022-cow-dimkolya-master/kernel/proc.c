@@ -233,9 +233,8 @@ int growproc(int n) {
 
   sz = p->sz;
   if (n > 0) {
-    if ((sz = uvmalloc(p->pagetable, sz, sz + n, PTE_W)) == 0) {
-      return -1;
-    }
+    if (sz + n > MAXVA) return -1;
+    sz += n;
   } else if (n < 0) {
     sz = uvmdealloc(p->pagetable, sz, sz + n);
   }
@@ -369,9 +368,16 @@ int wait(uint64 addr) {
           pid = pp->pid;
           if (addr != 0 && copyout(p->pagetable, addr, (char *)&pp->xstate,
                                    sizeof(pp->xstate)) < 0) {
+            enum procstate state = pp->xstate;
             release(&pp->lock);
-            release(&wait_lock);
-            return -1;
+            kill(pid);
+            acquire(&pp->lock);
+            freeproc(pp);
+            if (copyout(p->pagetable, addr, (char *)&state, sizeof(state)) < 0) {
+              release(&pp->lock);
+              release(&wait_lock);
+              return -1;
+            }
           }
           freeproc(pp);
           release(&pp->lock);

@@ -23,8 +23,14 @@ struct {
   struct run *freelist;
 } kmem;
 
+struct {
+  struct spinlock lock;
+  uint8 counter[PA2REFCNTR_INDEX(PHYSTOP)];
+} krefcntr;
+
 void kinit() {
   initlock(&kmem.lock, "kmem");
+  initlock(&krefcntr.lock, "krefcntr");
   freerange(end, (void *)PHYSTOP);
 }
 
@@ -44,14 +50,18 @@ void kfree(void *pa) {
   if (((uint64)pa % PGSIZE) != 0 || (char *)pa < end || (uint64)pa >= PHYSTOP)
     panic("kfree");
 
+  acquire(&kmem.lock);
+  acquire(&krefcntr.lock);
+  krefcntr.counter[PA2REFCNTR_INDEX(pa)] = 0;
+
   // Fill with junk to catch dangling refs.
   memset(pa, 1, PGSIZE);
 
   r = (struct run *)pa;
 
-  acquire(&kmem.lock);
   r->next = kmem.freelist;
   kmem.freelist = r;
+  release(&krefcntr.lock);
   release(&kmem.lock);
 }
 
@@ -62,10 +72,48 @@ void *kalloc(void) {
   struct run *r;
 
   acquire(&kmem.lock);
+  acquire(&krefcntr.lock);
   r = kmem.freelist;
-  if (r) kmem.freelist = r->next;
+  if (r) {
+    krefcntr.counter[PA2REFCNTR_INDEX(r)] = 1;
+    kmem.freelist = r->next;
+  }
+  release(&krefcntr.lock);
   release(&kmem.lock);
 
   if (r) memset((char *)r, 5, PGSIZE);  // fill with junk
   return (void *)r;
+}
+
+void kshare(void *pa) {
+  if (((uint64)pa % PGSIZE) != 0 || (char *)pa < end || (uint64)pa >= PHYSTOP)
+    panic("kshare");
+  acquire(&krefcntr.lock);
+  acquire(&kmem.lock);
+  ++krefcntr.counter[PA2REFCNTR_INDEX(pa)];
+  release(&kmem.lock);
+  release(&krefcntr.lock);
+}
+
+void kunshare(void *pa) {
+  if (((uint64)pa % PGSIZE) != 0 || (char *)pa < end || (uint64)pa >= PHYSTOP)
+    panic("kunshare");
+  acquire(&krefcntr.lock);
+  acquire(&kmem.lock);
+  if (--krefcntr.counter[PA2REFCNTR_INDEX(pa)] == 0) {
+    memset(pa, 1, PGSIZE);
+
+    struct run *r = (struct run *)pa;
+
+    r->next = kmem.freelist;
+    kmem.freelist = r;
+  }
+  release(&kmem.lock);
+  release(&krefcntr.lock);
+}
+
+uint64 krefcnt(void *pa) {
+  if (((uint64)pa % PGSIZE) != 0 || (char *)pa < end || (uint64)pa >= PHYSTOP)
+    panic("krefcnt");
+  return krefcntr.counter[PA2REFCNTR_INDEX(pa)];
 }
