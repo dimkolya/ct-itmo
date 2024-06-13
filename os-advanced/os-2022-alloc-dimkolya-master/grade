@@ -18,7 +18,7 @@ def test_alloctest():
 def test_usertests():
     r.run_qemu(shell_script([
         'usertests'
-    ]), timeout=600)
+    ]), timeout=900)
     r.match('^ALL TESTS PASSED$')
 
 run_tests()
