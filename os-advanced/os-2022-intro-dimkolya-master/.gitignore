@@ -16,3 +16,5 @@ kernel/kernel
 user/usys.S
 .gdbinit
 xv6.out*
+.idea/*
+.DS_Store

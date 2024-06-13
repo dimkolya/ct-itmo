@@ -606,3 +606,34 @@ void procdump(void) {
     printf("\n");
   }
 }
+
+// Print s2-s11 registers
+void dump(void) {
+  struct proc *p = myproc();
+  for (int i = 2; i <= 11; ++i) {
+    printf("s%d = %d\n", i, (&(p->trapframe->s2))[i - 2]);
+  }
+}
+
+int dump2(int pid, int register_num, uint64 *return_value) {
+  if (register_num < 2 || 11 < register_num) {
+    return -3;
+  }
+  struct proc *p = myproc();
+  struct proc *np;
+  for (np = proc; np < &proc[NPROC]; ++np) {
+    if (np->pid == pid) {
+      if (p != np && np->parent != p) {
+        return -1;
+      }
+      if (copyout(p->pagetable, (uint64)return_value,
+                  (char *)(&(np->trapframe->s2) + register_num - 2),
+                  sizeof(uint64)) < 0) {
+        return -4;
+      } else {
+        return 0;
+      }
+    }
+  }
+  return -2;
+}
