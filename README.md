@@ -25,7 +25,7 @@
 3. [Лабораторная работа №3](https://github.com/dimkolya/ct_itmo/tree/main/os-advanced/os-2022-cow-dimkolya-master). Оптимизация fork с помощью идеи copy-on-write.
 4. [Лабораторная работа №6](https://github.com/dimkolya/ct_itmo/tree/main/os-advanced/os-2022-pe-dimkolya-master). Разборщик Portable Executable.
 
-## Введение в программирование
+## Введение в программирование (Java)
 ### [`/prog-intro`](https://github.com/dimkolya/ct_itmo/tree/main/prog-intro)
 1. [Домашнее задание 2](https://github.com/dimkolya/ct_itmo/blob/main/prog-intro/java-solutions/SumBigIntegerHex.java). Сумма чисел. Разработайте класс `Sum`, который при запуске из командной строки будет складывать переданные в качестве аргументов целые числа и выводить их сумму на консоль.
 2. [Домашнее задание 3](https://github.com/dimkolya/ct_itmo/blob/main/prog-intro/java-solutions/ReverseHexAbc2.java). Реверс. Разработайте класс `Reverse`, читающий числа из стандартного ввода, и выводящий их на стандартный вывод в обратном порядке.
@@ -40,7 +40,11 @@
 11. [Домашнее задание 12](https://github.com/dimkolya/ct_itmo/tree/main/prog-intro/java-solutions/expression). Разбор выражений. Доработайте предыдущее домашнее задание, так что бы выражение строилось по записи вида `x * (x - 2)*x + 1`.
 12. [Домашнее задание 13](https://github.com/dimkolya/ct_itmo/tree/main/prog-intro/java-solutions/expression). Обработка ошибок. Добавьте в программу, вычисляющую выражения, обработку ошибок, в том числе: ошибки разбора выражений; ошибки вычисления выражений.
 
-## Парадигмы программирования
+## Технологии Java
+### [`/java-advanced`](https://github.com/dimkolya/ct_itmo/tree/main/java-advanced)
+1. [Домашнее задание 7](https://github.com/dimkolya/ct_itmo/tree/main/java-advanced/IterativeParallelism). Реализуйте класс IterativeParallelism, который будет обрабатывать списки в несколько потоков.
+
+## Парадигмы программирования (Java, JavaScript, Clojure, Prolog)
 ### [`/paradigms`](https://github.com/dimkolya/ct_itmo/tree/main/paradigms)
 1. [Домашняя работа №2](https://github.com/dimkolya/ct_itmo/tree/main/paradigms/java-solutions/search). Бинарный поиск. Реализуйте итеративный и рекурсивный варианты бинарного поиска в массиве.
 2. [Домашняя работа №3](https://github.com/dimkolya/ct_itmo/tree/main/paradigms/java-solutions/queue). Очередь на массиве. Определите модель и найдите инвариант структуры данных «очередь». Определите функции, которые необходимы для реализации очереди. Найдите их пред- и постусловия, при условии что очередь не содержит `null`.
